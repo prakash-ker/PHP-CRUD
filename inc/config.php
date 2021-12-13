@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 $GLOBALS['site_url'] = "http://localhost/prakash/TRAINING_SESSION/PHP-CRUD/";
 $GLOBALS['assets_url'] = "http://localhost/prakash/TRAINING_SESSION/PHP-CRUD/assets/";
 $GLOBALS['db_servername'] = "localhost";

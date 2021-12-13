@@ -4,23 +4,45 @@ if (isset($_POST['login']) && $_POST['login']=="yes") {
     
     $username = $_POST['username'];
     $password = $_POST['password'];
-    echo $password;
 
+    $errors = array();
+    if ($username == "") {
+        $errors[] = "username=Username is null.";
+    }
+
+    if ($password == "") {
+        $errors[] = "password=Password is null.";
+    }
+
+    if (!empty($errors)) {
+        $url_arg = implode("&",$errors);
+        $url = get_site_url('login.php?'.$url_arg);
+        header('location:'.$url);
+        die();
+        
+    }
+    
     $sql = "SELECT * FROM `auth` WHERE `username` = '$username'";
     $data = mysqli_query($con, $sql);
     $result = mysqli_fetch_assoc($data);
-    echo '<pre>' . print_r($result,true) . '</pre>';
+    
+    
     if (!$result && empty($result)) {
-        $url=get_site_url("login.php?username=User not exist.");
+        $url=get_site_url("login.php?username=Username is incorrect.");
         header('location:'.$url);
         die();
     }
 
     if ($result['password']!=md5($password)) {
-        $url=get_site_url("login.php?password=Password not exist.");
+        $url=get_site_url("login.php?password=Password is incorrect.");
         header('location:'.$url);
         die();
     }
+
+    $_SESSION['user_id'] = $result['id'];
+    $_SESSION['username'] = $result['username'];
+    $_SESSION['password'] = $result['password'];
+
     $url=get_site_url("index.php");
     header('location:'.$url);
 
@@ -70,6 +92,15 @@ if (isset($_POST['login']) && $_POST['login']=="yes") {
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
+                                    <?php
+                                        foreach ($_GET as $key => $value) {
+                                    ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                <?php echo $value ?>
+                                            </div>
+                                    <?php
+                                        }
+                                    ?>
                                     <form class="user" method="POST">
                                         <div class="form-group">
                                             <input type="text" name="username" class="form-control form-control-user" placeholder="user">
