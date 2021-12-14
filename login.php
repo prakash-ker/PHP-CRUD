@@ -43,6 +43,15 @@ if (isset($_POST['login']) && $_POST['login']=="yes") {
     $_SESSION['username'] = $result['username'];
     $_SESSION['password'] = $result['password'];
 
+    if (isset($_POST['remember_me']) && $_POST['remember_me']=="yes") {
+        global $cookie_name;
+        $login_value = array(
+            'username' => $result['username'],
+            'password' => $result['password'],
+        );
+        setcookie($cookie_name, json_encode($login_value), time() + (86400 * 30), "/"); // 86400 = 1 day
+    }
+
     $url=get_site_url("index.php");
     header('location:'.$url);
 
@@ -111,7 +120,7 @@ if (isset($_POST['login']) && $_POST['login']=="yes") {
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <input type="checkbox" name="remember_me" value="yes" class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
