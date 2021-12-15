@@ -1,6 +1,18 @@
 <?php
+    include_once('inc/user.inc.php');
     include_once('layout/header.php');
+
+    if (isset($_GET['success']) && $_GET['success']!='') {
+    ?>
+        <div class="alert alert-success" role="alert">
+        <?php echo $_GET['success']; ?>
+        </div>
+    <?php   
+    }
+
 ?>
+
+
 <!-- Page Heading -->
 <h1 class="h3 mb-4 text-gray-800">Add New User
     <a class="btn btn-primary float-right" href="users.php">Back</a>
@@ -81,7 +93,7 @@
         <!-- EOF Action -->
     </div>
     
-    
+    <input type="hidden" name="action" value="<?php echo (isset($_GET['action']) && $_GET['action']=="add") ? "add" : "edit" ?>">
 </form>
 
 <?php

@@ -1,10 +1,12 @@
 <?php
-	include_once('layout/header.php');
+	include_once('inc/user.inc.php');
+    include_once('layout/header.php');
+
 ?>
 
                     <!-- Page Heading -->
 <h1 class="h3 mb-4 text-gray-800">Users
-    <a class="btn btn-primary float-right" href="add_edit_user.php">Add New</a>
+    <a class="btn btn-primary float-right" href="add_edit_user.php?action=add">Add New</a>
 </h1>
 
 <div class="row">
