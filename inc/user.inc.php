@@ -18,10 +18,24 @@ if (isset($_POST['action'])) {
     if ($_POST['action']=="add") {
         
         $sql = "INSERT INTO `users`(`first_name`, `last_name`, `email`, `phone_number`, `age`, `address`, `status`, `create_date`) VALUES ('$first_name','$last_name','$email','$phone_number','$age','$address','$status',NOW())";        
-        $data = mysqli_query($con, $sql);       
+        $data = mysqli_query($con, $sql);
         $last_user_id = mysqli_insert_id($con);
-        $url=str_replace("=add","=edit",$url);
+        $url=str_replace("=add","=edit",$url);        
         $url.='&user_id='.$last_user_id.'&success=User Insert Succesfully.';
         header('location:'.$url);
+        die();
     }
+}
+if (isset($_GET['action'])) {
+    
+    if ($_GET['action']=='edit') {
+        $user_id = $_GET['user_id'];
+        $sql = "SELECT * FROM `users` WHERE `id`= '$user_id'";
+        $data = mysqli_query($con, $sql);
+        $result = mysqli_fetch_assoc($data);        
+    }
+}
+else {
+    $sql = "SELECT * FROM `users`";
+    $data = mysqli_query($con, $sql);
 }
