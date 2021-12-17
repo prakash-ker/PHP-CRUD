@@ -94,6 +94,7 @@
     </div>
     
     <input type="hidden" name="action" value="<?php echo (isset($_GET['action']) && $_GET['action']=="add") ? "add" : "edit" ?>">
+    <input type="hidden" name="user_id" value="<?php echo (isset($_GET['user_id']) && $_GET['user_id']!='') ? $_GET['user_id'] : "" ?>">
 </form>
 
 <?php
