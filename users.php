@@ -85,24 +85,20 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item ">
-                    <a class="page-link" href=""  aria-label="Previous">
+                    <a class="page-link" href="<?php echo $prev_page_url ?>"  aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
-               
+               <?php for ($i=1; $i <=$total_page ; $i++) {                    
+               ?>
                 <li class="page-item ">
-                    <a class="page-link" href="#">1</a>                    
+                    <a class="page-link" href="<?php echo get_site_url('users.php?page='.$i); ?>"><?php echo $i; ?></a>                    
                 </li>
-                <li class="page-item ">
-                    <a class="page-link" href="#">2</a>                    
-                </li>
-                <li class="page-item ">
-                    <a class="page-link" href="#">3</a>                    
-                </li>
+               <?php } ?>
                 
                 <li class="page-item ">
-                    <a class="page-link" href=""  aria-label="Next">
+                    <a class="page-link" href="<?php echo $next_page_url ?>"  aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>

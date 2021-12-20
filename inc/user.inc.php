@@ -13,7 +13,7 @@ if (isset($_POST['action'])) {
     $phone_number = $_POST['phone_number'];
     $age = $_POST['age'];
     $status = (isset($_POST['status']) && $_POST['status']==1) ? 1 : 0;
-    $address = $_POST['address'];    
+    $address = $_POST['address'];
     
     if ($_POST['action']=="add") {
         
@@ -70,6 +70,29 @@ if (isset($_GET['action'])) {
     
 }
 else {
-    $sql = "SELECT * FROM `users`";
+    $limit = 2;
+    $offset = 0;
+    $sql = "SELECT COUNT(*) AS total FROM `users`";
+    $data = mysqli_query($con, $sql);
+    $total = mysqli_fetch_assoc($data);    
+    $total = $total['total'];
+    $total_page = $total / $limit;
+    if (is_float($total_page)) {
+        $total_page = (int)$total_page+1;
+    }
+    $current_page = (isset ($_GET['page']) && $_GET['page']!='') ? $_GET['page'] : 1;
+    $prev_page_url = $next_page_url = "#";
+    if ($current_page>1) {
+        $prev_page = $current_page-1;
+        $prev_page_url = get_site_url('users.php?page='.$prev_page);
+    }
+    if ($current_page<$total_page) {
+        $next_page = $current_page+1;
+        $next_page_url = get_site_url('users.php?page='.$next_page);
+    }
+    if ($current_page>1) {
+       $offset = ($current_page-1)*$limit;
+    }
+    $sql = "SELECT * FROM `users` LIMIT $limit OFFSET $offset";
     $data = mysqli_query($con, $sql);
 }
