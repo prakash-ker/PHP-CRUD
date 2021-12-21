@@ -51,14 +51,7 @@ if (isset($_GET['action'])) {
         $url=get_site_url('users.php?success=Status update successfully.');
         header('location:'.$url);        
     }
-    if ($_GET['action']=='status' && isset($_GET['user_id']) && $_GET['user_id']!='') {
-        $user_id = $_GET['user_id'];
-        $user_status = (isset($_GET['user_status']) && $_GET['user_status']==1) ? 0 : 1;
-        $sql = "UPDATE `users` SET `status`='$user_status',`update_date`=NOW() WHERE `id` = $user_id";
-        $data = mysqli_query($con, $sql);
-        $url=get_site_url('users.php?success=Status update successfully.');
-        header('location:'.$url);        
-    }
+    
     if ($_GET['action']=='delete' && isset($_GET['user_id']) && $_GET['user_id']!='') {
         $user_id = $_GET['user_id'];        
         $sql = "DELETE FROM `users` WHERE `id` = $user_id";
