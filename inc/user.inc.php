@@ -5,15 +5,32 @@
 if (isset($_POST['action'])) {
 
     //$url= get_site_url('add_edit_user.php?action=edit&user_id=1&success=User Insert Succesfully.');
-    $action = (isset($_POST['action']) && $_POST['action']=="add") ? "add" : "edit";    
+    $action = (isset($_POST['action']) && $_POST['action']=="add") ? "add" : "edit";
     $url= get_site_url('add_edit_user.php?action='.$action);
-    $first_name = $_POST['first_name'];
-    $last_name = $_POST['last_name'];
-    $email = $_POST['email'];
+    $first_name = (isset($_POST['first_name'])) ? clean_input($_POST['first_name']) : "";    
+    $last_name = (isset($_POST['last_name'])) ? clean_input($_POST['last_name']) : "";
+    $email = (isset($_POST['email'])) ? clean_input($_POST['email']) : "";
     $phone_number = $_POST['phone_number'];
     $age = $_POST['age'];
     $status = (isset($_POST['status']) && $_POST['status']==1) ? 1 : 0;
     $address = $_POST['address'];
+
+    $error = array();
+    if ($first_name=="") {
+        $error[]="First name is null";
+    }
+    if ($last_name=="") {
+        $error[]="Last name is null";
+    }
+    if ($email=="") {
+        $error[]="Email is null";
+    }
+    if (!empty($error)) {
+        $error = implode(',',$error);
+        $url.='&error='.$error;
+        header('location:'.$url);
+        die();
+    }
     
     if ($_POST['action']=="add") {
         
@@ -63,7 +80,7 @@ if (isset($_GET['action'])) {
     
 }
 else {
-    $limit = 2;
+    $limit = 5;
     $offset = 0;
     $sql = "SELECT COUNT(*) AS total FROM `users`";
     $data = mysqli_query($con, $sql);

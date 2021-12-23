@@ -10,6 +10,19 @@
     <?php   
     }
 
+    if (isset($_GET['error']) && $_GET['error']!='') {        
+        $error = explode(',', $_GET['error']);
+        foreach ($error as $errors) {
+        ?>
+            <div class="alert alert-danger" role="alert">
+            <?php echo $errors ?>
+            </div>
+        <?php
+        }
+        ?>
+            
+    <?php   
+    }
 ?>
 
 
@@ -84,9 +97,14 @@
                 </div>
                 <div class="card-body">
                     <button type="submit" class="btn btn-primary">Save</button>
+                    <?php if ($_GET['action'] && $_GET['action']!=='edit') {
+                    ?>
                     <button type="reset" class="btn btn-secondary">Clear</button>
+                    <?php } ?>
+                    <?php  if ($_GET['action'] && $_GET['action']!=='add') {
+                    ?>
                     <button type="reset" class="btn btn-danger">Delete</button>
-                  
+                    <?php } ?>
                 </div>
             </div>
         </div>

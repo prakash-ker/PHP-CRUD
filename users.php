@@ -10,7 +10,7 @@
             </div>
         <?php   
         }
-    
+
     ?>
 
 <!-- Page Heading -->
@@ -83,6 +83,9 @@
 
         
         <!-- Pagination -->
+        <?php if ($total_page>1) {
+            
+        ?>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item ">
@@ -107,7 +110,7 @@
             </ul>
         </nav>
         <!-- EOF Pagination -->
-      
+        <?php } ?>
 
     </div>
 </div>

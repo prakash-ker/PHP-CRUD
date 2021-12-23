@@ -25,3 +25,10 @@ function log_me_out($logoutmsg = "Logout Successfully."){
     $url = get_site_url('login.php?login='.$logoutmsg);
     header('location:'.$url);   
 }
+
+function clean_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+  }
